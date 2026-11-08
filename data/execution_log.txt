@@ -1,0 +1,2 @@
+2026-11-08 13:39:17 | INFO     | main | Starting venue extraction pipeline | url=https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga | max_pages=2 | model=groq/openai/gpt-oss-120b
+2026-11-08 13:39:32 | INFO     | src.crawler | Crawling page 1/2: https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga

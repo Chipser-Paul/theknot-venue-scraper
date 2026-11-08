@@ -1,0 +1,6 @@
+crawl4ai==0.7.4
+pydantic==2.10.6
+python-dotenv==1.0.1
+litellm==1.63.11
+playwright==1.50.0
+pytest==8.3.5
