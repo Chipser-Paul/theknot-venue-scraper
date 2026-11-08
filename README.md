@@ -17,7 +17,7 @@ The codebase strictly separates configuration, page retrieval, LLM structured ex
 ```text
 theknot-venue-scraper/
 ├── data/
-│   ├── venues_atlanta.csv       # Actual execution output (30 unique Atlanta venues)
+│   ├── venues_atlanta.csv       # Actual execution output (51 unique Atlanta venues)
 │   └── execution_log.txt        # Console output log from the execution run
 ├── src/
 │   ├── __init__.py
@@ -135,45 +135,41 @@ python main.py \
 ### Console Log Output (`data/execution_log.txt`)
 
 ```text
-2026-11-08 13:39:17 | INFO     | main | Starting venue extraction pipeline | url=https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga | max_pages=2 | model=groq/openai/gpt-oss-120b
-2026-11-08 13:39:32 | INFO     | src.crawler | Crawling page 1/2: https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga
-2026-11-08 13:39:32 | WARNING  | src.crawler | Page 1 crawl unsuccessful: Unexpected error in _crawl_web at line 696 in _crawl_web (..\AppData\Local\Programs\Python\Python313\Lib\site-packages\crawl4ai\async_crawler_strategy.py):
-Error: Failed on navigating ACS-GOTO:
-Page.goto: Timeout 60000ms exceeded.
-Call log:
-  - navigating to "https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga", waiting until "domcontentloaded"
-
-2026-11-08 13:39:32 | INFO     | src.crawler | Crawling page 2/2: https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga?page=2
-2026-11-08 13:39:32 | WARNING  | src.crawler | Page 2 crawl unsuccessful: Unexpected error in _crawl_web at line 696 in _crawl_web (..\AppData\Local\Programs\Python\Python313\Lib\site-packages\crawl4ai\async_crawler_strategy.py):
-Error: Failed on navigating ACS-GOTO:
-Page.goto: Timeout 60000ms exceeded.
-Call log:
-  - navigating to "https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga?page=2", waiting until "domcontentloaded"
-
-2026-11-08 13:39:32 | INFO     | src.exporter | Exported 0 unique venues to data/venues_atlanta.csv
-2026-11-08 13:39:32 | INFO     | main | --- Execution Summary ---
-2026-11-08 13:39:32 | INFO     | main | Page 1: [FAILED] HTTP=N/A | Extracted=0 | URL=https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga | Note: Unexpected error in _crawl_web at line 696 in _crawl_web (..\AppData\Local\Programs\Python\Python313\Lib\site-packages\crawl4ai\async_crawler_strategy.py):
-Error: Failed on navigating ACS-GOTO:
-Page.goto: Timeout 60000ms exceeded.
-Call log:
-  - navigating to "https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga", waiting until "domcontentloaded"
-
-2026-11-08 13:39:32 | INFO     | main | Page 2: [FAILED] HTTP=N/A | Extracted=0 | URL=https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga?page=2 | Note: Unexpected error in _crawl_web at line 696 in _crawl_web (..\AppData\Local\Programs\Python\Python313\Lib\site-packages\crawl4ai\async_crawler_strategy.py):
-Error: Failed on navigating ACS-GOTO:
-Page.goto: Timeout 60000ms exceeded.
-Call log:
-  - navigating to "https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga?page=2", waiting until "domcontentloaded"
-
-2026-11-08 13:39:32 | INFO     | main | Total raw records: 0 | Deduplicated exported records: 0 | Output CSV: data/venues_atlanta.csv
+2026-11-08 22:51:58 | INFO     | main | Starting venue extraction pipeline | url=https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga | max_pages=2 | model=groq/openai/gpt-oss-120b
+2026-11-08 22:52:10 | INFO     | src.crawler | Crawling page 1/2: https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga
+2026-11-08 22:53:11 | INFO     | src.extractor | Groq TPM budget reached; waiting 60.5s before chunk 2/4 of https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga.
+2026-11-08 22:54:21 | INFO     | src.extractor | Groq TPM budget reached; waiting 60.5s before chunk 3/4 of https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga.
+2026-11-08 22:55:25 | INFO     | src.extractor | Groq TPM budget reached; waiting 60.5s before chunk 4/4 of https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga.
+2026-11-08 22:56:27 | INFO     | src.crawler | Page 1 complete (HTTP 200): extracted 25 valid venue records.
+2026-11-08 22:56:27 | INFO     | src.crawler | Waiting 20.0s for the Groq TPM bucket to refill before page 2.
+2026-11-08 22:56:47 | INFO     | src.crawler | Crawling page 2/2: https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga?page=2
+2026-11-08 22:57:18 | INFO     | src.extractor | Groq TPM budget reached; waiting 9.4s before chunk 1/3 of https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga?page=2.
+2026-11-08 22:57:37 | INFO     | src.extractor | Groq TPM budget reached; waiting 60.5s before chunk 2/3 of https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga?page=2.
+2026-11-08 22:58:46 | INFO     | src.extractor | Groq TPM budget reached; waiting 60.5s before chunk 3/3 of https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga?page=2.
+2026-11-08 22:59:51 | INFO     | src.crawler | Page 2 complete (HTTP 200): extracted 27 valid venue records.
+2026-11-08 22:59:53 | INFO     | src.exporter | Exported 51 unique venues to data/venues_atlanta.csv
+2026-11-08 22:59:53 | INFO     | main | --- Execution Summary ---
+2026-11-08 22:59:53 | INFO     | main | Page 1: [OK] HTTP=200 | Extracted=25 | URL=https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga
+2026-11-08 22:59:53 | INFO     | main | Page 2: [OK] HTTP=200 | Extracted=27 | URL=https://www.theknot.com/marketplace/wedding-reception-venues-atlanta-ga?page=2
+2026-11-08 22:59:53 | INFO     | main | Total raw records: 52 | Deduplicated exported records: 51 | Output CSV: data/venues_atlanta.csv
 ```
 
 ### Generated CSV Output (`data/venues_atlanta.csv`)
 
-The live 2-page execution attempt produced **0 venues** due to The Knot's anti-bot protections blocking navigation to both pages. Per the project guidelines (*"If access is restricted, document the block rather than trying to circumvent it"*), the crawler detected access restrictions on both Page 1 and Page 2 and exited gracefully while preserving zero venue records.
+The full generated CSV is tracked in [`data/venues_atlanta.csv`](data/venues_atlanta.csv) and contains **51 unique reception venues** from the Atlanta, GA marketplace directory (across 2 paginated pages). Below is a preview of the extracted records illustrating populated fields as well as intentionally blank cells where pricing or ratings are absent on the listing:
 
 | name | location | price | capacity | rating | reviews_count | short_description | source_url |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| *No venues extracted – The Knot marketplace directory is blocked by anti-bot protections (PerimeterX/Cloudflare). Run the pipeline from a different network or after the site cools down.*
+| [Atlanta Botanical Garden](https://www.theknot.com/marketplace/atlanta-botanical-garden-atlanta-ga-568614) | Atlanta, GA | Starting at $800 | 151-200 guests | 4.7 | 21 | The Atlanta Botanical Garden is a versatile indoor/outdoor wedding venue in Atlanta, GA... | `https://www.theknot.com/marketplace/atlanta-botanical-garden-atlanta-ga-568614` |
+| [Wild Heaven West End Brewery & Gardens](https://www.theknot.com/marketplace/wild-heaven-west-end-brewery-and-gardens-atlanta-ga-2066144) | Atlanta, GA | Starting at $2,250 | 151-200 guests | 5.0 | 14 | Wild Heaven West End Brewery & Gardens is a unique wedding venue in Atlanta's Historic West End... | `https://www.theknot.com/marketplace/wild-heaven-west-end-brewery-and-gardens-atlanta-ga-2066144` |
+| [Wahoo! Grill](https://www.theknot.com/marketplace/wahoo-grill-decatur-ga-304290) | Decatur, GA | Starting at $3,000 | 201-250 guests | 5.0 | 135 | Book your wedding, wedding reception or rehearsal dinner at Wahoo! and you can relax... | `https://www.theknot.com/marketplace/wahoo-grill-decatur-ga-304290` |
+| [The American Hotel Atlanta Downtown](https://www.theknot.com/marketplace/the-american-hotel-atlanta-downtown-atlanta-ga-2101901) | Atlanta, GA | Starting at $3,000 | 251-300 guests | *(blank)* | 0 | Host the wedding you have always envisioned at The American Hotel Atlanta Downtown... | `https://www.theknot.com/marketplace/the-american-hotel-atlanta-downtown-atlanta-ga-2101901` |
+| [Renaissance Atlanta Midtown Hotel](https://www.theknot.com/marketplace/renaissance-atlanta-midtown-hotel-atlanta-ga-959882) | Midtown Atlanta | *(blank)* | 300+ guests | 5.0 | 2 | Renaissance Atlanta Midtown Hotel is a wedding venue in Atlanta, Georgia... | `https://www.theknot.com/marketplace/renaissance-atlanta-midtown-hotel-atlanta-ga-959882` |
+| [The Tess, Autograph Collection](https://www.theknot.com/marketplace/the-tess-autograph-collection-atlanta-ga-2066854) | Atlanta, GA | *(blank)* | 300+ guests | *(blank)* | 0 | The Tess, Autograph Collection is a stylish hotel wedding venue located in the trendy Buckhead neighborhood... | `https://www.theknot.com/marketplace/the-tess-autograph-collection-atlanta-ga-2066854` |
+| [Epicurean Hotel Atlanta](https://www.theknot.com/marketplace/epicurean-hotel-atlanta-atlanta-ga-2045329) | Atlanta, GA | *(blank)* | 101-150 guests | 5.0 | 5 | Epicurean Hotel Atlanta is a luxe and lavish wedding venue in Atlanta, GA... | `https://www.theknot.com/marketplace/epicurean-hotel-atlanta-atlanta-ga-2045329` |
+| [Ventanas](https://www.theknot.com/marketplace/ventanas-atlanta-ga-356342) | Atlanta, GA | Starting at $10,000 | 151-200 guests | 4.6 | 39 | Ventanas is an Atlanta, GA, wedding and event venue with spectacular cityscape vistas... | `https://www.theknot.com/marketplace/ventanas-atlanta-ga-356342` |
+| [InterContinental Buckhead Atlanta](https://www.theknot.com/marketplace/intercontinental-buckhead-atlanta-atlanta-ga-318573) | Atlanta, GA | Starting at $225 | 300+ guests | 5.0 | 8 | InterContinental Buckhead Atlanta is a hotel wedding venue that combines classic charm with modern luxury... | `https://www.theknot.com/marketplace/intercontinental-buckhead-atlanta-atlanta-ga-318573` |
+| [Smoke Rise Country Club](https://www.theknot.com/marketplace/smoke-rise-country-club-stone-mountain-ga-2103266) | Stone Mountain, GA | *(blank)* | *(blank)* | *(blank)* | *(blank)* | Community-focused Private Club Smoke Rise Country Club is a wedding venue in Stone Mountain, GA... | `https://www.theknot.com/marketplace/smoke-rise-country-club-stone-mountain-ga-2103266` |
 ---
 
 ## Technical Choices, Difficulties Encountered & Known Limitations
@@ -183,8 +179,8 @@ The live 2-page execution attempt produced **0 venues** due to The Knot's anti-b
 - **Modular Separation of Concerns**:
   - `src/config.py` isolates environment loading (`python-dotenv`) and fails fast with a clear error if `GROQ_API_KEY` is missing.
   - `src/models.py` uses **Pydantic** (`ReceptionVenue`) as the single source of truth—both generating the JSON Schema passed to `LLMExtractionStrategy` and validating/cleaning the LLM's output.
-  - `src/extractor.py` configures Crawl4AI's `LLMConfig` and `LLMExtractionStrategy` with `temperature=0.0`, explicit anti-hallucination instructions, and automatic rate-limit backoff (`backoff_base_delay=2`, `backoff_max_attempts=3`).
-  - `src/crawler.py` manages `AsyncWebCrawler`, `BrowserConfig`, and `CrawlerRunConfig`, stripping non-content DOM tags (`nav`, `footer`, `script`, `style`) before Markdown conversion to reduce LLM token consumption.
+  - `src/extractor.py` configures Crawl4AI's `LLMConfig` and `LLMExtractionStrategy` with `temperature=0.0` and explicit anti-hallucination instructions. It also provides a custom `ThrottledLLMExtractionStrategy` with a `TokenRateLimiter` that paces chunk requests to Groq's 8,000 TPM on_demand limit.
+  - `src/crawler.py` manages `AsyncWebCrawler`, `BrowserConfig`, and `CrawlerRunConfig`, stripping non-content DOM tags (`nav`, `header`, `footer`, `aside`, `form`, `script`, `style`, `noscript`, `svg`) and image URLs before Markdown conversion to reduce LLM token consumption.
   - `src/exporter.py` performs deterministic cross-page deduplication (keyed by canonical storefront URL or normalized venue name) and backfills any missing fields if a duplicate card appears with fuller metadata.
 - **Zero-Hallucination & Blank-Cell Policy**:
   - Rather than allowing the LLM to guess missing prices or ratings, both the prompt instruction and Pydantic validators enforce `None` when a venue displays `"Request pricing"` or `"0 Stars (0) Reviews"`. During CSV export, `None` serializes to an empty string `""`.
@@ -201,7 +197,7 @@ The live 2-page execution attempt produced **0 venues** due to The Knot's anti-b
 ### 3. Known Limitations
 
 - **Token Usage & Groq Free-Tier Rate Limits**:
-  - Full marketplace directory pages contain 30 venue cards per page. Chunking (`chunk_token_threshold=2800`) keeps prompts within context limits, but crawling many pages on Groq's free tier can hit Tokens-Per-Minute (TPM) limits, requiring the built-in exponential backoff in `LLMConfig`.
+  - Full marketplace directory pages contain 30 venue cards per page. Chunking (`chunk_token_threshold=1200`) keeps prompts within context limits, but crawling many pages on Groq's free tier can hit Tokens-Per-Minute (TPM) limits, requiring the built-in sequential chunk throttling in `TokenRateLimiter` and `ThrottledLLMExtractionStrategy` to stay within the 8,000 TPM Groq on_demand limit.
 - **Card-Level vs. Storefront-Level Depth**:
   - The scraper extracts summary fields available on the marketplace search result cards. Detailed package PDFs or tiered seasonal pricing that require clicking into each individual storefront and submitting a contact form are not publicly visible on the listing cards.
 
